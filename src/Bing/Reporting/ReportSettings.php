@@ -30,12 +30,6 @@ class ReportSettings extends Settings
     private $_downloadFolder = null;
     private $_accountScope = null;
     private $_campaignScope = null;
-    private $reportsPath;
-
-    public function __construct($reportsPath)
-    {
-        $this->reportsPath = $reportsPath;
-    }
 
     // Load the properties from the settings file.
 
@@ -58,14 +52,6 @@ class ReportSettings extends Settings
         if (empty($this->_downloadFolder))
         {
             throw new SettingsException("The downloadFolder setting is not set.");
-        }
-
-        $reports_path = getcwd() . $this->reportsPath;
-
-        if (!is_dir($reports_path))
-        {
-            throw new SettingsException("The download folder " . $this->_downloadFolder . " does not exist.\n" .
-                    "Create the folder and try again.");
         }
 
         $query = "//setting[@name='accountScope']/accounts";
