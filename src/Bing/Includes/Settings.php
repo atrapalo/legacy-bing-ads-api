@@ -51,12 +51,10 @@ class Settings
     protected function LoadSettings($path)
     {
         $path = getcwd().$path;
-        if (is_file($path))
-        {
+        if (is_file($path)) {
             $doc = new DOMDocument;
 
-            if ($doc->load($path))
-            {
+            if ($doc->load($path)) {
                 $xpath = new DOMXPath($doc);
 
                 // Get the sign-in password.
@@ -64,15 +62,13 @@ class Settings
                 $query = "//setting[@name='password']";
                 $node = $xpath->query($query)->item(0);
 
-                if (empty($node))
-                {
+                if (empty($node)) {
                     throw new SettingsException("The password setting is missing.");
                 }
 
                 $this->_password = $node->nodeValue;
 
-                if (empty($this->_password))
-                {
+                if (empty($this->_password)) {
                     throw new SettingsException("The password setting is not set.");
                 }
 
@@ -81,15 +77,13 @@ class Settings
                 $query = "//setting[@name='username']";
                 $node = $xpath->query($query)->item(0);
 
-                if (empty($node))
-                {
+                if (empty($node)) {
                     throw new SettingsException("The username setting is missing.");
                 }
 
                 $this->_username = $node->nodeValue;
 
-                if (empty($this->_username))
-                {
+                if (empty($this->_username)) {
                     throw new SettingsException("The username setting is not set.");
                 }
 
@@ -98,15 +92,13 @@ class Settings
                 $query = "//setting[@name='devToken']";
                 $node = $xpath->query($query)->item(0);
 
-                if (empty($node))
-                {
+                if (empty($node)) {
                     throw new SettingsException("The devToken setting is missing.");
                 }
 
                 $this->_devToken = $node->nodeValue;
 
-                if (empty($this->_devToken))
-                {
+                if (empty($this->_devToken)) {
                     throw new SettingsException("The devToken setting is not set.");
                 }
 
@@ -115,12 +107,10 @@ class Settings
                 $query = "//setting[@name='accountId']";
                 $node = $xpath->query($query)->item(0);
 
-                if (!empty($node))
-                {
+                if (!empty($node)) {
                     $this->_accountId = $node->nodeValue;
 
-                    if (empty($this->_accountId))
-                    {
+                    if (empty($this->_accountId)) {
                         $this->_accountId = null;
                     }
                 }
@@ -130,12 +120,10 @@ class Settings
                 $query = "//setting[@name='customerId']";
                 $node = $xpath->query($query)->item(0);
 
-                if (!empty($node))
-                {
+                if (!empty($node)) {
                     $this->_customerId = $node->nodeValue;
 
-                    if (empty($this->_customerId))
-                    {
+                    if (empty($this->_customerId)) {
                         $this->_customerId = null;
                     }
                 }
@@ -145,22 +133,18 @@ class Settings
                 $query = "//setting[@name='wsdl']";
                 $node = $xpath->query($query)->item(0);
 
-                if (empty($node))
-                {
+                if (empty($node)) {
                     throw new SettingsException("The wsdl setting is missing.");
                 }
 
                 $this->_wsdl = $node->nodeValue;
 
-                if (empty($this->_wsdl))
-                {
+                if (empty($this->_wsdl)) {
                     throw new SettingsException("The wsdl setting is not set.");
                 }
             }
-        }
-        else
-        {
-            throw new SettingsException("The settings folder " . self::SETTINGS_PATH . " was not found.");
+        } else {
+            throw new SettingsException("The settings folder was not found: ".$path);
         }
 
         return $xpath;
